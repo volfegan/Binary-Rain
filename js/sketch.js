@@ -63,7 +63,7 @@ function Stream() {
     this.symbols = [];
     //produces a total symbols of [8 or 16] + 0~8
     this.totalSymbols = 7 + 8 * round(random(0, 1)) + round(random(0, 8));
-    this.speed = random(1, 6);
+    this.speed = random(1, 8);
 
     this.generateSymbols = function (x, y) {
         var opacity = 255;
