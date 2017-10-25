@@ -66,16 +66,16 @@ function Stream() {
     //Creates the string of binary numbers depending of webpage height
     var canvasHeight = document.getElementsByTagName("body")[0].getBoundingClientRect().height;
     if (canvasHeight < 1024) {
-        //produces a total symbols of [8 or 16] + 0~8
-        this.totalSymbols = 7 + 8 * round(random(0, 1)) + round(random(0, 8));
+            //produces a total symbols of [8 or 16]
+        this.totalSymbols = 7 + 8 * round(random(0, 1));
         this.speed = random(2, 8);
     } else if (canvasHeight < 2048) {
-        //produces a total symbols of [8 or 16] + 8~16
-        this.totalSymbols = 7 + 8 * round(random(0, 1)) + round(random(8, 16));
+            //produces a total symbols of [8 or 16 or 24]
+        this.totalSymbols = 7 + 8 * round(random(0, 2));
         this.speed = random(2, 8);
     } else {
-        //produces a total symbols of [8 or 16] + 8~32
-        this.totalSymbols = 7 + 8 * round(random(0, 1)) + round(random(8, 32));
+            //produces a total symbols of [8 or 16 or 24 or 32]
+        this.totalSymbols = 7 + 8 * round(random(0, 3));
         this.speed = random(2, 16);
     }
 
