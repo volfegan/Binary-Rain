@@ -32,7 +32,7 @@ var binaryMatrix = function(p) {
     }
     p.windowResized = function() {
         p.resizeCanvas(p.windowWidth, p.windowHeight);
-        p.redraw()
+        //p.redraw()
     }
     
     function Symbol(x, y, speed, first, opacity) {
