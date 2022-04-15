@@ -5,7 +5,17 @@ var binaryMatrix = function(p) {
     p.streams = [];
     p.fadeInterval = 1.6;
     p.symbolSize = 16;
+    p.reset = false;
+    p.startTime;
 
+    p.keyPressed = function() {
+      if (p.keyCode === p.ESCAPE && p.reset == false) {
+        p.reset = true;
+      } else if (p.keyCode === p.ESCAPE && p.reset == true) {
+        p.reset = false;
+      }
+    }
+    
     p.setup = function() {
         p.createCanvas( p.windowWidth, p.windowHeight );
         p.background(0);
@@ -22,13 +32,27 @@ var binaryMatrix = function(p) {
         
         p.textFont('Consolas');
         p.textSize(p.symbolSize);
+        p.startTime = Date.now();
     }
 
     p.draw = function() {
+        let message;
+        
         p.background(0, 150);
         p.streams.forEach(function (stream) {
             stream.render();
         });
+        if (Date.now() < p.startTime + 1000) {
+            message = "Connection on-line";
+            p.text(message, (p.windowWidth/2)-p.textWidth(message)/2, p.windowHeight/2);
+        }
+        if (p.reset && p.streams.length > 0) {
+            p.streams.splice(p.random(p.streams.length-1),1); //remove a random stream of binaries
+        } 
+        if (p.streams.length == 0) {
+            message = "Connection Lost...";
+            p.text(message, (p.windowWidth/2)-p.textWidth(message)/2, p.windowHeight/2);
+        }
     }
     p.windowResized = function() {
         p.resizeCanvas(p.windowWidth, p.windowHeight);

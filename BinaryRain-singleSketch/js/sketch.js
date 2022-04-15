@@ -2,6 +2,17 @@ var streams = [];
 var fadeInterval = 1.6;
 var symbolSize = 16;
 
+var startTime;
+var reset = false;
+
+function keyPressed() {
+  if (keyCode === ESCAPE && reset == false) {
+    reset = true;
+  } else if (keyCode === ESCAPE && reset == true) {
+    reset = false;
+  }
+}
+
 function setup() {
     var canvas = createCanvas(
         window.innerWidth,
@@ -20,13 +31,29 @@ function setup() {
 
     textFont('Consolas');
     textSize(symbolSize);
+    startTime = Date.now();
 }
 
 function draw() {
+    let message;
+    
     background(0, 150);
     streams.forEach(function (stream) {
         stream.render();
     });
+    
+    if (Date.now() < startTime + 1000 && streams.length > 0) {
+        message = "Connection on-line";
+        text(message, (window.innerWidth/2)-textWidth(message)/2, window.innerHeight/2);
+    }
+    if (reset && streams.length > 0) {
+        streams.splice(random(streams.length-1),1); //remove a random stream of binaries
+        if (streams.length == 0) startTime = Date.now();
+    } 
+    if (streams.length == 0 && Date.now() < startTime + 3000) {
+        message = "Connection Lost...";
+        text(message, (window.innerWidth/2)-textWidth(message)/2, window.innerHeight/2);
+    }
 }
 
 function Symbol(x, y, speed, first, opacity) {
